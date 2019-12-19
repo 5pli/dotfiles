@@ -2,7 +2,6 @@
 
 fpath=(
   $fpath
-  ~/.rvm/scripts/zsh/Completion
   ~/.zsh/functions
   /usr/local/share/zsh/site-functions
 )
@@ -33,8 +32,9 @@ zstyle ':completion:*' cache-path ~/.zshcache
 # make with the pretty colors
 autoload colors; colors
 
-# just say no to zle vim mode:
-bindkey -e
+# Just say no to zle emacs mode:
+bindkey -v
+export KEYTIMEOUT=1
 
 # options
 setopt appendhistory extendedglob histignoredups nonomatch prompt_subst interactivecomments
@@ -184,6 +184,11 @@ source ~/bin/zsh-z.plugin.zsh
 
 plugins=(… zsh-completions)
 
+eval "$(rbenv init -)"
+alias hlsptl="DISABLE_DATABASE_ENVIRONMENT_CHECK=1 RAILS_ENV=development bundle exec rake db:drop && heroku pg:pull DATABASE_URL hls_development --app hls-production && bundle exec rake db:create && bundle exec rake db:migrate"
+alias ocdptl="DISABLE_DATABASE_ENVIRONMENT_CHECK=1 RAILS_ENV=development bundle exec rake db:drop && heroku pg:pull DATABASE_URL ocdbeesdev --app ocdbees-production && bundle exec rake db:create && bundle exec rake db:migrate"
+
   # Set Spaceship ZSH as a prompt
   autoload -U promptinit; promptinit
   prompt spaceship
+export PATH="/usr/local/opt/libxml2/bin:$PATH"
